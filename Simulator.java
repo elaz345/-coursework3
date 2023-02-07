@@ -12,6 +12,8 @@ import java.awt.Color;
  * @version 2022.01.06 (1)
  */
 
+//ur an idiot
+
 public class Simulator {
     // The default width for the grid.
     private static final int DEFAULT_WIDTH = 100;
