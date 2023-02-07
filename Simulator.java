@@ -39,7 +39,7 @@ public class Simulator {
      */
     public static void main(String[] args) {
       Simulator sim = new Simulator();
-      sim.simulate(100);
+      sim.simulate(99);
     }
 
     /**
