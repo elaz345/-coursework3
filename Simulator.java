@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.Color;
+import javax.swing.JButton;
 
 /**
  * A Life (Game of Life) simulator, first described by British mathematician
@@ -35,13 +36,15 @@ public class Simulator {
 
     // A graphical view of the simulation.
     private SimulatorView view;
+    
+    
 
     /**
      * Execute simulation
      */
     public static void main(String[] args) {
       Simulator sim = new Simulator();
-      sim.simulate(99);
+      sim.simulate(100);
     }
 
     /**
@@ -134,6 +137,8 @@ public class Simulator {
         for (int col = 0; col < field.getWidth(); col++) {
           Location location = new Location(row, col);
           Mycoplasma myco = new Mycoplasma(field, location, Color.ORANGE);
+          //Mycoplasma chonk = new Mycoplasma(field, location, Color.BLUE);
+
           if (rand.nextDouble() <= MYCOPLASMA_ALIVE_PROB) {
             cells.add(myco);
           }
@@ -156,5 +161,9 @@ public class Simulator {
         catch (InterruptedException ie) {
             // wake up
         }
+    }
+    
+    private void stepButtonSim(){
+        
     }
 }
