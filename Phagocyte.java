@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.util.List;
 import java.util.Random;
+import java.util.Iterator;
 
 /**
  * Simplest form of life.
@@ -30,19 +31,34 @@ public class Phagocyte extends Cell {
      public void act() {
        List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
        setNextState(true);
-       
-       
-       if(isAlive()){
-           switch(neighbours.size()){
-            case 1:
-                setColor(Color.GREEN);
-                break;
-            case 2: case 3: 
-                setColor(Color.RED);
-                break;
-           }
+       Location newLocation = findMyco();
+       if(newLocation != null){
+           setColor(Color.GREEN);
+           setNextState(true);
+       }
+       if (newLocation == null){
+           setNextState(true);
+       }
         }
-      
-
+    
+      private Location findMyco()
+    {
+        Field field = getField();
+        Boolean eaten = false;
+        List<Location> adjacent = field.adjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next();
+            Cell cell = field.getObjectAt(where);
+            if(cell instanceof Mycoplasma) {
+                Mycoplasma myco = (Mycoplasma) cell;
+                if(myco.isAlive()) { 
+                    myco.setDead();
+                    eaten = true;
+                    return where;
+                }
+            }
+        }
+        return null;
     }
 }

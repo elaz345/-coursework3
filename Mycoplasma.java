@@ -30,7 +30,9 @@ public class Mycoplasma extends Cell {
      public void act() {
        List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
        setNextState(false);
-
+       //Location loc = new Location(3,3);
+       //System.out.println(getField().getLivingNeighbours(loc));
+       
        if(isAlive()){
            switch(neighbours.size()){
             case 0: case 1: case 4: case 5: case 6: case 7:
