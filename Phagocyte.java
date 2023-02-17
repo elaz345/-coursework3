@@ -15,6 +15,8 @@ import java.util.Iterator;
 
 public class Phagocyte extends Cell {
 
+    private int mycoCount = 0;
+
     /**
      * Create a new Mycoplasma.
      *
@@ -31,7 +33,11 @@ public class Phagocyte extends Cell {
      public void act() {
        List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
        setNextState(true);
-       Location newLocation = findMyco();
+       Location newLocation = killMyco();
+       mycoCount = 0;
+       //if (numberMyco() == 3){
+         //    setColor(Color.RED);
+       //}
        if(newLocation != null){
            setColor(Color.GREEN);
            setNextState(true);
@@ -39,26 +45,47 @@ public class Phagocyte extends Cell {
        if (newLocation == null){
            setNextState(true);
        }
+       
+             
         }
     
-      private Location findMyco()
+      private Location killMyco()
     {
         Field field = getField();
-        Boolean eaten = false;
         List<Location> adjacent = field.adjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
-        while(it.hasNext()) {
+        while(isAlive() && it.hasNext()) {
             Location where = it.next();
             Cell cell = field.getObjectAt(where);
             if(cell instanceof Mycoplasma) {
                 Mycoplasma myco = (Mycoplasma) cell;
                 if(myco.isAlive()) { 
-                    myco.setDead();
-                    eaten = true;
+                    myco.setNextState(false);
+                    //mycoCount += 1;
                     return where;
                 }
+                
             }
         }
         return null;
+    }
+     private int numberMyco()
+    {
+        Field field = getField();
+        List<Location> adjacent = field.adjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        
+        while(it.hasNext()) {
+            Location currentLoc = it.next();
+            Cell cell = field.getObjectAt(currentLoc);
+            if(cell instanceof Mycoplasma) {
+                Mycoplasma myco = (Mycoplasma) cell;
+                if(myco.isAlive()) {
+                    mycoCount += 1;
+                    myco.setNextState(false);
+                }
+            }
+        }
+        return mycoCount;
     }
 }
