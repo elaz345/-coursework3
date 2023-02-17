@@ -80,6 +80,8 @@ public abstract class Cell {
     public void setColor(Color col) {
       color = col;
     }
+    
+    
 
     /**
      * Returns the cell's color

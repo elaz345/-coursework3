@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.awt.Color;
 import javax.swing.JButton;
 
@@ -15,6 +15,8 @@ import javax.swing.JButton;
 
 //ur an idiot
 
+
+
 public class Simulator {
     // The default width for the grid.
     private static final int DEFAULT_WIDTH = 100;
@@ -24,6 +26,9 @@ public class Simulator {
 
     // The probability that a Mycoplasma is alive
     private static final double MYCOPLASMA_ALIVE_PROB = 0.1;
+    
+    // The probability that a Phagocyte is alive
+    private static final double PHAGOCYTE_ALIVE_PROB = 0.025;
 
     // List of cells in the field.
     private List<Cell> cells;
@@ -71,7 +76,7 @@ public class Simulator {
         field = new Field(depth, width);
 
         // Create a view of the state of each location in the field.
-        view = new SimulatorView(depth, width);
+        view = new SimulatorView(depth, width, this);
 
         // Setup a valid starting point.
         reset();
@@ -135,17 +140,23 @@ public class Simulator {
       field.clear();
       for (int row = 0; row < field.getDepth(); row++) {
         for (int col = 0; col < field.getWidth(); col++) {
-          Location location = new Location(row, col);
-          Mycoplasma myco = new Mycoplasma(field, location, Color.ORANGE);
-          //Mycoplasma chonk = new Mycoplasma(field, location, Color.BLUE);
-
-          if (rand.nextDouble() <= MYCOPLASMA_ALIVE_PROB) {
+        if (rand.nextDouble() <= MYCOPLASMA_ALIVE_PROB) {
+            Location location = new Location(row, col);
+            Mycoplasma myco = new Mycoplasma(field, location, Color.ORANGE);
             cells.add(myco);
-          }
-          else {
+        }
+    
+        else if (rand.nextDouble() <= PHAGOCYTE_ALIVE_PROB){
+            Location location = new Location(row, col);
+            Phagocyte phag = new Phagocyte(field, location, Color.BLUE);
+            cells.add(phag);
+        } 
+        else{
+            Location location = new Location(row, col);
+            Mycoplasma myco = new Mycoplasma(field, location, Color.ORANGE);
             myco.setDead();
             cells.add(myco);
-          }
+        }
         }
       }
     }
@@ -163,7 +174,4 @@ public class Simulator {
         }
     }
     
-    private void stepButtonSim(){
-        
-    }
 }

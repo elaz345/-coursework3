@@ -38,15 +38,16 @@ public class SimulatorView extends JFrame {
     // A statistics object computing and storing simulation information
     private FieldStats stats;
     // A button for 'stepping' the simulation
-    public JButton stepButton;
-    
-
+    private JButton stepButton;
+  
+    //instance of simulator
+    private Simulator simulator;
     /**
      * Create a view of the given width and height.
      * @param height The simulation's height.
      * @param width  The simulation's width.
      */
-    public SimulatorView(int height, int width) {
+    public SimulatorView(int height, int width, Simulator simul) {
         stats = new FieldStats();
 
         setTitle("Life Simulation");
@@ -55,25 +56,26 @@ public class SimulatorView extends JFrame {
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         stepButton = new JButton(STEP_BUTTON);
         setLocation(100, 50);
-
+        simulator =  simul;
         fieldView = new FieldView(height, width);
 
         Container contents = getContentPane();
 
         JPanel infoPane = new JPanel(new BorderLayout());
-            infoPane.add(genLabel, BorderLayout.WEST);
-            infoPane.add(infoLabel, BorderLayout.CENTER);
+        infoPane.add(genLabel, BorderLayout.WEST);
+        infoPane.add(infoLabel, BorderLayout.CENTER);
         contents.add(infoPane, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
         contents.add(population, BorderLayout.SOUTH);
-        //infoPane.add(stepButton, BorderLayout.EAST);
-        //stepButton.addActionListener(e -> stepButton());
+        infoPane.add(stepButton, BorderLayout.EAST);
+        stepButton.addActionListener(e -> stepButton());
 
         pack();
         setVisible(true);
     }
     
     public void stepButton() {
+        simulator.simOneGeneration();
     }
     
 
