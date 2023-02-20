@@ -27,6 +27,7 @@ public abstract class Cell {
 
     private int mycoCount;
 
+    private Simulator sim;
     //private List<Cell> neighbours;
     /**
      * Create a new cell at location in field.
@@ -57,6 +58,10 @@ public abstract class Cell {
     protected boolean isAlive() {
         return alive;
     }
+    
+    protected  int getGeneration(){
+        return sim.getGeneration();
+    }
 
     /**
      * Indicate that the cell is no longer alive.
@@ -86,6 +91,7 @@ public abstract class Cell {
         color = col;
     }
 
+    
 
     /**
      * Returns the cell's color

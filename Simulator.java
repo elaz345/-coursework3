@@ -28,7 +28,7 @@ public class Simulator {
     private static final double MYCOPLASMA_ALIVE_PROB = 0.1;
     
     // The probability that a Phagocyte is alive
-    private static final double PHAGOCYTE_ALIVE_PROB = 0.025;
+    private static final double PHAGOCYTE_ALIVE_PROB = 0.01;
 
     // List of cells in the field.
     private List<Cell> cells;
@@ -99,7 +99,7 @@ public class Simulator {
     public void simulate(int numGenerations) {
         for (int gen = 1; gen <= numGenerations && view.isViable(field); gen++) {
             simOneGeneration();
-            delay(500);   // comment out to run simulation faster
+            //delay(500);   // comment out to run simulation faster
         }
     }
 
@@ -172,6 +172,11 @@ public class Simulator {
         catch (InterruptedException ie) {
             // wake up
         }
+    }
+    
+    
+    public int getGeneration(){
+        return generation;
     }
     
 }
