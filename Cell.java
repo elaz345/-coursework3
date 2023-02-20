@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * A class representing the shared characteristics of all forms of life
@@ -24,7 +25,9 @@ public abstract class Cell {
     // The cell's color
     private Color color = Color.white;
 
+    private int mycoCount;
 
+    //private List<Cell> neighbours;
     /**
      * Create a new cell at location in field.
      *
@@ -37,6 +40,8 @@ public abstract class Cell {
         this.field = field;
         setLocation(location);
         setColor(col);
+        mycoCount = 0;
+        
     }
 
     /**
@@ -64,30 +69,29 @@ public abstract class Cell {
      * Indicate that the cell will be alive or dead in the next generation.
      */
     public void setNextState(boolean value) {
-      nextAlive = value;
+        nextAlive = value;
     }
 
     /**
      * Changes the state of the cell
      */
     public void updateState() {
-      alive = nextAlive;
+        alive = nextAlive;
     }
 
     /**
      * Changes the color of the cell
      */
     public void setColor(Color col) {
-      color = col;
+        color = col;
     }
-    
-    
+
 
     /**
      * Returns the cell's color
      */
     public Color getColor() {
-      return color;
+        return color;
     }
 
     /**
@@ -114,4 +118,31 @@ public abstract class Cell {
     protected Field getField() {
         return field;
     }
+
+    /**
+     * Returns number of mycoplasma surrounding phagocyte
+     */
+    protected int numberMyco()
+    {
+        List<Cell> neighbours = getField().getLivingNeighbours(location);
+
+        ListIterator<Cell> it = neighbours.listIterator();
+        while (it.hasNext()) {
+            if((it.next() instanceof Mycoplasma) && isAlive()){
+                mycoCount += 1;
+            }
+        }
+        return mycoCount;
+    }
+
+    protected Boolean instanceOfMyco(Cell cell){
+        if( cell instanceof Mycoplasma){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    
 }

@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.util.List;
 import java.util.Random;
+import java.util.*;
 
 /**
  * Simplest form of life.
@@ -29,10 +30,19 @@ public class Mycoplasma extends Cell {
      */
      public void act() {
        List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
+       
        setNextState(false);
+       
        //Location loc = new Location(3,3);
        //System.out.println(getField().getLivingNeighbours(loc));
-       
+       int MycoCount = 0;
+       ListIterator<Cell> it = neighbours.listIterator();
+       while (it.hasNext()) {
+            if(it.next() instanceof Mycoplasma){
+                MycoCount += 1;
+            }
+        }
+        
        if(isAlive()){
            switch(neighbours.size()){
             case 0: case 1: case 4: case 5: case 6: case 7:

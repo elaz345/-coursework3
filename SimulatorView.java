@@ -28,6 +28,7 @@ public class SimulatorView extends JFrame {
 
     //Text for step button GUI label
     private final String STEP_BUTTON = "Step";
+    private final String SIM_BUTTON = "Simulate";
     // GUI labels
     private JLabel genLabel, population, infoLabel;
 
@@ -37,8 +38,14 @@ public class SimulatorView extends JFrame {
 
     // A statistics object computing and storing simulation information
     private FieldStats stats;
+    
+    
+    
     // A button for 'stepping' the simulation
     private JButton stepButton;
+    
+    // A button for 'stepping' the simulation
+    private JButton simulateButton;
   
     //instance of simulator
     private Simulator simulator;
@@ -55,6 +62,7 @@ public class SimulatorView extends JFrame {
         infoLabel = new JLabel("  ", JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         stepButton = new JButton(STEP_BUTTON);
+        simulateButton = new JButton(SIM_BUTTON);
         setLocation(100, 50);
         simulator =  simul;
         fieldView = new FieldView(height, width);
@@ -68,7 +76,9 @@ public class SimulatorView extends JFrame {
         contents.add(fieldView, BorderLayout.CENTER);
         contents.add(population, BorderLayout.SOUTH);
         infoPane.add(stepButton, BorderLayout.EAST);
+        infoPane.add(simulateButton, BorderLayout.NORTH);
         stepButton.addActionListener(e -> stepButton());
+        simulateButton.addActionListener(e -> simulateButton());
 
         pack();
         setVisible(true);
@@ -77,7 +87,9 @@ public class SimulatorView extends JFrame {
     public void stepButton() {
         simulator.simOneGeneration();
     }
-    
+    public void simulateButton() {
+        simulator.runLongSimulation();
+    }
 
     /**
      * Display a short information label at the top of the window.
