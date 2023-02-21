@@ -29,6 +29,9 @@ public class Simulator {
     
     // The probability that a Phagocyte is alive
     private static final double PHAGOCYTE_ALIVE_PROB = 0.01;
+    
+    // The probability that a Alpha Cell is alive
+    private static final double ALPHA_ALIVE_PROB = 0.01;
 
     // List of cells in the field.
     private List<Cell> cells;
@@ -151,6 +154,12 @@ public class Simulator {
             Phagocyte phag = new Phagocyte(field, location, Color.BLUE);
             cells.add(phag);
         } 
+        else if (rand.nextDouble() <= ALPHA_ALIVE_PROB){
+            Location location = new Location(row, col);
+            AlphaCell alpha = new AlphaCell(field, location, Color.GREEN);
+            cells.add(alpha);
+        } 
+        
         else{
             Location location = new Location(row, col);
             Mycoplasma myco = new Mycoplasma(field, location, Color.ORANGE);

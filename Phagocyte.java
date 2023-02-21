@@ -39,7 +39,7 @@ public class Phagocyte extends Cell {
        setColor(Color.BLUE);
        eatsMyco();
        
-       if (numberEaten >= 50){
+       if (numberEaten >= 5){
            setColor(Color.RED);
         }
        setNextState(true);
